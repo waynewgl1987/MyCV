@@ -1,174 +1,140 @@
 /**
  * export.js — PDF Export module
  *
- * DEBUG: Set localStorage.setItem('pdf_debug','1') then reload for verbose logging.
+ * Opens a print-ready window with formatted resume content.
+ * User saves as PDF via browser print dialog (Cmd+P → Save as PDF).
  */
-var PDF_DEBUG = localStorage && localStorage.getItem('pdf_debug') === '1';
-function LOG() { if (PDF_DEBUG) { var args = Array.prototype.slice.call(arguments); args.unshift('[PDF]'); console.log.apply(console, args); } }
+
 function exportPDF() {
   var isZh = document.body.classList.contains('lang-zh');
   var content = document.getElementById('export-content');
-  if (!content) { alert('Error: Export content not found'); return; }
-  LOG('=== PDF EXPORT START ===');
-  LOG('isZh:', isZh);
-  LOG('viewport:', window.innerWidth, 'x', window.innerHeight);
+  if (!content) {
+    alert(isZh ? '错误：未找到导出内容' : 'Error: Export content not found');
+    return;
+  }
 
-  // --- Log element dimensions before modifications ---
-  var cr = content.getBoundingClientRect();
-  LOG('content (before mods):', {
-    offsetWidth: content.offsetWidth,
-    offsetHeight: content.offsetHeight,
-    scrollWidth: content.scrollWidth,
-    scrollHeight: content.scrollHeight,
-    clientWidth: content.clientWidth,
-    clientHeight: content.clientHeight,
-    boundingRect: { top: cr.top, left: cr.left, width: cr.width, height: cr.height }
-  });
-  var cs = getComputedStyle(content);
-  LOG('content computed styles:', {
-    width: cs.width,
-    maxWidth: cs.maxWidth,
-    paddingLeft: cs.paddingLeft,
-    paddingRight: cs.paddingRight,
-    marginLeft: cs.marginLeft,
-    marginRight: cs.marginRight,
-    boxSizing: cs.boxSizing,
-    overflow: cs.overflow,
-    position: cs.position,
-    display: cs.display
-  });
-  LOG('html2pdf lib:', typeof html2pdf, typeof html2pdf === 'function' ? '(loaded)' : '(MISSING!)');
-  // --- Disable buttons ---
-  var btns = document.querySelectorAll('.export-btn');
-  btns.forEach(function(b) { b.disabled = true; b.textContent = isZh ? '⏳ 生成中…' : '⏳ Rendering…'; });
+  var clone = content.cloneNode(true);
+  clone.removeAttribute('id');
 
-  // --- Force light theme ---
-  var oldTheme = document.documentElement.getAttribute('data-theme');
-  document.documentElement.setAttribute('data-theme', 'light');
+  // Remove opposite language elements
+  var removeClass = isZh ? 'en-only' : 'zh-only';
+  var toRemove = clone.querySelectorAll('.' + removeClass);
+  for (var i = toRemove.length - 1; i >= 0; i--) {
+    toRemove[i].parentNode.removeChild(toRemove[i]);
+  }
 
-  // --- Inline language visibility ---
-  var langEls = content.querySelectorAll('.en-only, .zh-only');
-  var langState = [];
-  langEls.forEach(function(el) {
-    langState.push({ el: el, display: el.style.display });
-    el.style.display = el.classList.contains('en-only') ? (isZh ? 'none' : 'block') : (isZh ? 'block' : 'none');
-  });
-
-  // --- Strip ↗ from skill tags ---
-  var tags = content.querySelectorAll('.skill-tag');
-  var arrowState = [];
-  tags.forEach(function(el) {
-    var t = el.textContent;
-    if (t.indexOf('↗') !== -1) { arrowState.push({ el: el, text: t }); el.textContent = t.replace(' ↗', '').replace('↗', ''); }
-  });
-
-  // --- Enlarge fonts for PDF readability ---
-  var pdfStyle = document.createElement('style');
-  pdfStyle.id = 'pdf-export-zoom';
-  pdfStyle.textContent = [
-    '#export-content { font-size: 22px !important; line-height: 1.7 !important; }',
-    '#export-content .header h1 { font-size: 44px !important; }',
-    '#export-content .header .title-en { font-size: 22px !important; }',
-    '#export-content .section-title { font-size: 17px !important; }',
-    '#export-content .entry-company { font-size: 20px !important; }',
-    '#export-content .entry-role { font-size: 17px !important; }',
-    '#export-content .school { font-size: 19px !important; }',
-    '#export-content .project-name { font-size: 19px !important; }',
-    '#export-content .contact-row { font-size: 16px !important; }',
-    '#export-content .entry-desc, #export-content .intro-block p { font-size: 16px !important; }',
-    '#export-content .skill-tag { font-size: 16px !important; }',
-    '#export-content .hobby-tag { font-size: 16px !important; }',
-    '#export-content .project-desc { font-size: 16px !important; }',
-  ].join(' ');
-  document.head.appendChild(pdfStyle);
-
-  // --- Log dimensions after style injection ---
-  var cr3 = content.getBoundingClientRect();
-  LOG('content (after style injection):', {
-    offsetWidth: content.offsetWidth,
-    offsetHeight: content.offsetHeight
-  });
-
-  setTimeout(function() {
-    try {
-      var opt = {
-        margin:       [6, 6, 6, 6],
-        filename:     isZh ? 'Wayne_LIN_简历.pdf' : 'Wayne_LIN_Resume.pdf',
-        image:        { type: 'jpeg', quality: 0.95 },
-        html2canvas:  {
-          scale: 2,
-          useCORS: true,
-          letterRendering: true,
-          backgroundColor: '#ffffff'
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        // mode: [] disables html2pdf's DOM page-splitting plugin which causes blank pages.
-        // toPdf() falls back to canvas-based splitting, slicing the full canvas at page heights.
-        pagebreak:    { mode: [] }
-      };
-
-      LOG('opt being passed to html2pdf:', JSON.parse(JSON.stringify(opt)));
-
-      // --- Intercept html2canvas to log canvas dimensions ---
-      var origH2c = window.html2canvas;
-      if (typeof origH2c === 'function') {
-        window.html2canvas = function(el, opts) {
-          LOG('html2canvas invoked - element:', (el && el.id) || (el && el.tagName) || 'unknown', 'opts.width:', (opts && opts.width), 'opts.windowWidth:', (opts && opts.windowWidth));
-          return origH2c(el, opts).then(function(cv) {
-            LOG('html2canvas RESULT canvas:', { width: cv.width, height: cv.height });
-            window.html2canvas = origH2c;
-            return cv;
-          }, function(err) {
-            LOG('html2canvas ERROR:', err);
-            window.html2canvas = origH2c;
-            throw err;
-          });
-        };
-      } else {
-        LOG('WARNING: window.html2canvas not found');
-      }
-
-      btns.forEach(function(b) { b.textContent = isZh ? '⏳ 保存PDF…' : '⏳ Saving PDF…'; });
-
-      html2pdf().set(opt).from(content).save().then(function() {
-        showToast(isZh ? '✅ PDF 已导出' : '✅ PDF saved!');
-        restore();
-      }).catch(function(err) {
-        console.error('PDF export error:', err);
-        showToast('❌ ' + (isZh ? '导出失败' : 'Export failed'));
-        restore();
-      });
-    } catch(e) {
-      showToast('❌ Error: ' + e.message);
-      restore();
+  // Strip arrows and Learn More tags
+  var tags = clone.querySelectorAll('.skill-tag');
+  for (var j = tags.length - 1; j >= 0; j--) {
+    var t = tags[j].textContent;
+    if (t.indexOf('Learn More') !== -1 || t.indexOf('了解更多') !== -1) {
+      tags[j].parentNode.removeChild(tags[j]);
+    } else if (t.indexOf('↗') !== -1) {
+      tags[j].textContent = t.replace(' ↗', '').replace('↗', '');
     }
-  }, 100);
-
-  function restore() {
-    LOG('=== PDF EXPORT END (restore) ===');
-    document.documentElement.setAttribute('data-theme', oldTheme || 'light');
-    langState.forEach(function(s) { s.el.style.display = s.display; });
-    arrowState.forEach(function(s) { s.el.textContent = s.text; });
-    var zoomStyle = document.getElementById('pdf-export-zoom');
-    if (zoomStyle) zoomStyle.remove();
-    btns.forEach(function(b) {
-      b.disabled = false;
-      b.textContent = isZh ? '📄 导出PDF' : '📄 Export PDF';
-    });
   }
 
-  function showToast(msg) {
-    var old = document.getElementById('pdf-toast');
-    if (old) old.remove();
-    var toast = document.createElement('div');
-    toast.id = 'pdf-toast';
-    toast.textContent = msg;
-    toast.style.cssText =
-      'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
-      'z-index:9999;background:#1a1c2e;color:#fff;padding:12px 24px;' +
-      'border-radius:12px;font-size:14px;font-family:-apple-system,sans-serif;' +
-      'box-shadow:0 4px 20px rgba(0,0,0,0.2);max-width:90vw;text-align:center;';
-    document.body.appendChild(toast);
-    setTimeout(function() { toast.style.opacity = '0'; setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300); }, 3000);
+  // Remove UI elements
+  var uiEls = clone.querySelectorAll('.top-bar, .mobile-export, .mobile-menu');
+  for (var k = uiEls.length - 1; k >= 0; k--) {
+    uiEls[k].parentNode.removeChild(uiEls[k]);
   }
+
+  var printWin = window.open('', '_blank');
+  if (!printWin) {
+    alert(isZh ? '请允许弹出窗口' : 'Please allow popups');
+    return;
+  }
+
+  printWin.document.write(
+    '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
+    '<title>' + (isZh ? 'Wayne LIN 简历' : 'Wayne LIN Resume') + '</title>' +
+    '<style>' + getPrintCSS() + '</style></head><body>' +
+    clone.innerHTML +
+    '<script>window.onload=function(){setTimeout(function(){window.print();},500);}<\/script>' +
+    '</body></html>'
+  );
+  printWin.document.close();
+}
+
+function getPrintCSS() {
+  return [
+    '* { margin: 0; padding: 0; box-sizing: border-box; }',
+    'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color: #1a1c2e; line-height: 1.5; font-size: 15px; padding: 30px 42px; max-width: 794px; margin: 0 auto; background: #fff; }',
+
+    '.header { text-align: center; padding: 0 0 14px; }',
+    '.header h1 { font-size: 30px; font-weight: 700; margin-bottom: 3px; }',
+    '.title-en { font-size: 16px; color: #1c4ed8; font-weight: 500; }',
+    '.title-zh { font-size: 16px; color: #6b7280; }',
+    '.contact-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; font-size: 14px; color: #6b7280; }',
+    '.contact-row a { color: #1c4ed8; text-decoration: none; }',
+
+    '.section { margin-bottom: 12px; }',
+    '.section-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid #e0e2ec; }',
+
+    '.timeline { position: relative; }',
+    '.timeline::before { content: ""; position: absolute; left: 100px; top: 6px; bottom: 6px; width: 1.5px; background: #e0e2ec; }',
+    '.entry { display: flex; margin-bottom: 9px; }',
+    '.entry-date { width: 100px; flex-shrink: 0; text-align: right; font-size: 13px; color: #6b7280; padding: 3px 10px 0 0; }',
+    '.entry-body { position: relative; padding-left: 20px; flex: 1; min-width: 0; }',
+    '.entry-body::before { content: ""; position: absolute; left: -5px; top: 7px; width: 10px; height: 10px; border-radius: 50%; background: #1c4ed8; border: 2px solid #fff; }',
+    '.entry-company { font-size: 16px; font-weight: 600; color: #1a1c2e; }',
+    '.entry-role { font-size: 14px; color: #1c4ed8; margin-top: 1px; }',
+    '.entry-desc { font-size: 14px; margin-top: 2px; line-height: 1.5; color: #1a1c2e; }',
+    '.entry-desc ul { margin-top: 2px; padding-left: 16px; }',
+    '.entry-desc li { margin-bottom: 1px; }',
+
+    '.intro-block { padding: 12px 16px; margin-bottom: 10px; background: #f0f2f8; border-radius: 8px; }',
+    '.intro-block p { font-size: 14.5px; line-height: 1.6; margin-bottom: 4px; }',
+    '.intro-block p:last-child { margin-bottom: 0; }',
+
+    '.skill-tag { font-size: 13px; padding: 3px 10px; background: #eef2ff; color: #1a1c2e; border: 1px solid #e0e2ec; border-radius: 5px; display: inline-block; margin: 2px 4px 2px 0; }',
+    '.hobby-tag { font-size: 13px; padding: 3px 10px; background: #eef2ff; color: #1a1c2e; border: 1px solid #e0e2ec; border-radius: 5px; display: inline-block; margin: 2px 4px 2px 0; }',
+    '.skills-category { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-top: 10px; margin-bottom: 4px; }',
+    '.skills-grid { display: flex; flex-wrap: wrap; gap: 4px; }',
+    '.hobbies { display: flex; flex-wrap: wrap; gap: 4px; }',
+
+    '.project-name { font-size: 15px; font-weight: 600; color: #1c4ed8; display: flex; justify-content: space-between; align-items: center; padding-bottom: 5px; margin-bottom: 5px; border-bottom: 1px solid #e0e2ec; }',
+    '.project-name a { font-size: 13px; color: #1c4ed8; text-decoration: none; }',
+    '.project-desc { font-size: 14px; line-height: 1.5; color: #1a1c2e; margin-top: 3px; }',
+    '.project-desc ul { padding-left: 16px; margin: 3px 0; list-style: disc; }',
+    '.project-desc li { margin-bottom: 2px; }',
+    '.project-card { padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fe; border: 1px solid #e0e2ec; }',
+    '.project-grid { display: block; }',
+    '.project-build-note { font-size: 13px; padding: 7px 11px; margin-bottom: 8px; background: #eef2ff; border-radius: 8px; }',
+    '.project-build-note p { margin: 0; }',
+    '.project-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }',
+    '.project-tags span { font-size: 12px; background: #eef2ff; color: #1c4ed8; padding: 2px 8px; border-radius: 999px; }',
+    '.project-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-top: 6px; gap: 5px; }',
+    '.project-status { font-size: 13px; color: #16a34a; font-weight: 500; }',
+    '.project-links { display: flex; flex-wrap: wrap; gap: 4px; }',
+    '.project-links a { font-size: 12px; color: #1c4ed8; text-decoration: none; background: #eef2ff; padding: 2px 8px; border-radius: 999px; }',
+    '.project-links-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }',
+    '.project-links-row a { font-size: 13px; color: #1c4ed8; text-decoration: none; }',
+
+    '.languages-content { font-size: 14.5px; }',
+    '.lang-entry { margin-bottom: 3px; }',
+
+    '.entry-parallel .entry-body::before { display: none; }',
+    '.entry-parallel .entry-body { padding-left: 0; }',
+    '.entry-parallel-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-bottom: 8px; padding-left: 20px; }',
+    '.parallel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-left: 20px; }',
+    '.parallel-item { padding: 8px 10px; background: #f8f9fe; border-radius: 8px; border: 1px solid #e0e2ec; }',
+    '.parallel-item::before { display: none; }',
+    '.parallel-item .entry-company { font-size: 14px; }',
+    '.parallel-item .entry-role { font-size: 13px; }',
+    '.parallel-item .entry-desc { font-size: 13px; }',
+
+    'footer { margin-top: 16px; padding-top: 10px; border-top: 1px solid #e0e2ec; text-align: center; font-size: 13px; color: #6b7280; }',
+
+    '@media print {',
+    '  body { padding: 22px 34px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }',
+    '  .entry { break-inside: avoid; }',
+    '  .intro-block { break-inside: avoid; }',
+    '  .project-card { break-inside: avoid; }',
+    '  .header { break-inside: avoid; }',
+    '  .parallel-item { break-inside: avoid; }',
+    '  @page { margin: 20px 0 10px 0; size: A4; }',
+    '}',
+  ].join('\n');
 }

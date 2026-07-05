@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:," type="image/x-icon">
 <title>Wayne LIN — Resume</title>
 <link rel="stylesheet" href="css/index.css">
 <script src="js/lib/marked.min.js"></script>
@@ -359,7 +360,6 @@
           <div class="entry-company zh-only">智能冰淇淋自动售货机</div>
           <div class="entry-role en-only">App Tech Lead &amp; Project Manager</div>
           <div class="entry-role zh-only">项目技术负责人 &amp; 项目经理</div>
-      <div class="entry-date">2018.06 – 2018.09</div>
           <div class="entry-desc">
             <ul>
               <li class="en-only">Team member: 8 people</li>
@@ -380,7 +380,6 @@
           <div class="entry-company zh-only">智能魔镜</div>
       <div class="entry-role en-only">Backend Server Developer &amp; iOS App Developer</div>
       <div class="entry-role zh-only">后端服务器开发 &amp; iOS 应用开发</div>
-      <div class="entry-date">2018.09 – 2018.12</div>
           <div class="entry-desc">
             <ul>
               <li class="en-only">Team member: 4 people</li>
@@ -811,54 +810,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Clone export button into mobile menu
   var desktopActions = document.querySelector('.top-bar-actions');
-  if (desktopActions && mobileActions) {
+  if (desktopActions) {
+    var badgeSpan = desktopActions.querySelector('.badge');
     if (badgeSpan) mobileActions.appendChild(badgeSpan.cloneNode(true));
   }
 
-  // --- Mobile export debug ---
+  // --- Mobile export lang button sync ---
   (function() {
     var me = document.getElementById('mobile-export');
-    if (!me) { console.warn('[MOBILE-EXPORT] Element #mobile-export NOT FOUND in DOM'); return; }
-    var cs = getComputedStyle(me);
-    var btn = me.querySelector('.export-btn');
-    var btnCS = btn ? getComputedStyle(btn) : null;
-    console.log('[MOBILE-EXPORT] === ELEMENT DIAGNOSIS ===');
-    console.log('[MOBILE-EXPORT] viewport width:', window.innerWidth);
-    console.log('[MOBILE-EXPORT] element:', me);
-    console.log('[MOBILE-EXPORT] computed styles:', {
-      display: cs.display,
-      position: cs.position,
-      top: cs.top,
-      left: cs.left,
-      right: cs.right,
-      zIndex: cs.zIndex,
-      visibility: cs.visibility,
-      opacity: cs.opacity,
-      background: cs.background,
-      height: cs.height,
-      transform: cs.transform
-    });
-    console.log('[MOBILE-EXPORT] button:', btn);
-    if (btnCS) {
-      console.log('[MOBILE-EXPORT] button computed styles:', {
-        display: btnCS.display,
-        visibility: btnCS.visibility,
-        opacity: btnCS.opacity,
-        color: btnCS.color,
-        background: btnCS.background
-      });
-    }
-    console.log('[MOBILE-EXPORT] body paddingTop:', getComputedStyle(document.body).paddingTop);
-    // Check z-index stack
-    var topBar = document.querySelector('.top-bar');
-    var mobileMenu = document.getElementById('mobile-menu');
-    if (topBar) console.log('[MOBILE-EXPORT] top-bar z-index:', getComputedStyle(topBar).zIndex);
-    if (mobileMenu) console.log('[MOBILE-EXPORT] mobile-menu z-index:', getComputedStyle(mobileMenu).zIndex);
-    console.log('[MOBILE-EXPORT] =========================');
-    // Visual debug: add a red border if not visible
-    if (cs.display === 'none' || cs.opacity === '0') {
-      console.warn('[MOBILE-EXPORT] *** ELEMENT IS HIDDEN! display=' + cs.display + ' opacity=' + cs.opacity);
-    }
+    if (!me) return;
   })();
 
   if (!nav || !sections.length) return;
