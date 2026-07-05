@@ -134,7 +134,7 @@
   .contact-row a:hover { text-decoration: underline; }
 
   /* Sections */
-  .section { margin-bottom: 48px; scroll-margin-top: 96px; page-break-inside: avoid; }
+  .section { margin-bottom: 48px; scroll-margin-top: 96px; }
   .section-title {
     font-size: 13px; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.08em; color: var(--muted); margin-bottom: 20px;
@@ -224,6 +224,14 @@
   .project-name a:hover { text-decoration: underline; }
   .project-desc {
     font-size: 14px; color: var(--text); margin-top: 8px; line-height: 1.6;
+  }
+  .project-desc ul {
+    padding-left: 18px;
+    margin: 6px 0;
+    list-style: disc;
+  }
+  .project-desc ul li {
+    margin-bottom: 6px;
   }
   .project-tags {
     display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
@@ -595,5 +603,5 @@ footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); 
 body { padding-top: 0 !important; }
 .container { padding: 20px !important; }
 .skill-modal-overlay { display: none !important; }
-.section { page-break-inside: avoid; }
+  .section { page-break-inside: avoid; }
 }

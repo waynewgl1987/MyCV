@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:," type="image/x-icon">
 <title>Wayne LIN — Resume</title>
 <link rel="stylesheet" href="css/index.css">
 <script src="js/lib/marked.min.js"></script>
@@ -359,7 +360,6 @@
           <div class="entry-company zh-only">智能冰淇淋自动售货机</div>
           <div class="entry-role en-only">App Tech Lead &amp; Project Manager</div>
           <div class="entry-role zh-only">项目技术负责人 &amp; 项目经理</div>
-      <div class="entry-date">2018.06 – 2018.09</div>
           <div class="entry-desc">
             <ul>
               <li class="en-only">Team member: 8 people</li>
@@ -380,7 +380,6 @@
           <div class="entry-company zh-only">智能魔镜</div>
       <div class="entry-role en-only">Backend Server Developer &amp; iOS App Developer</div>
       <div class="entry-role zh-only">后端服务器开发 &amp; iOS 应用开发</div>
-      <div class="entry-date">2018.09 – 2018.12</div>
           <div class="entry-desc">
             <ul>
               <li class="en-only">Team member: 4 people</li>
@@ -405,8 +404,8 @@
       <div class="entry-body">
       <div class="entry-company en-only">ZhongRui Theater — WeChat Mini Program</div>
       <div class="entry-company zh-only">中瑞剧坊 — 微信小程序</div>
-      <div class="entry-role en-only">Developer &amp; System Architect</div>
-      <div class="entry-role zh-only">开发 &amp; 系统架构师</div>
+      <div class="entry-role en-only">Developer, System Architect &amp; Project Lead</div>
+      <div class="entry-role zh-only">开发、系统架构师 &amp; 项目负责人</div>
       <div class="entry-desc">
         <ul>
           <li class="en-only">Team member: 4 people</li>
@@ -523,7 +522,12 @@
         Cross-platform remote desktop &amp; AI bridge system built on GStreamer's multimedia pipeline, solving two key scenarios:
         <br><br>
         <strong>▸ AI Workflow Bridge</strong><br>
-        Chat from your phone to call the remote host's OpenCode agent in real time. Transfer files from remote to local phone with one command, or send files/images from phone to remote. When OpenCode finishes a task, results are instantly pushed to your phone for review. All connections can optionally leverage NAT traversal (P2P hole punching) for end-to-end encryption &mdash; personal data stays fully isolated on your own devices.
+        <ul>
+          <li>One command to control the remote host &mdash; execute tasks via OpenCode agent (write code, organize files), transfer organized files from remote to phone, or send files/images from phone to remote.</li>
+          <li>When OpenCode finishes a task, results are instantly pushed to your phone as a notification.</li>
+        </ul>
+        Using <strong>LiveKit</strong> as the real-time signaling &amp; data channel layer for reliable message delivery between phone and remote host.
+        All connections can optionally leverage NAT traversal (P2P hole punching) via free tools like <strong>Tailscale</strong> for end-to-end encryption &mdash; personal data stays fully isolated on your own devices.
         <br><br>
         <strong>▸ Remote Desktop Streaming</strong><br>
         Real-time remote desktop viewing and control via GStreamer + WebRTC stack — an auxiliary feature to see and interact with the remote host screen. LAN latency 40–80ms @ 60fps with optimized multi-touch gesture controls for smooth operation.
@@ -534,7 +538,12 @@
         基于 GStreamer 多媒体管道的跨平台远程桌面与 AI 桥接系统，主要解决两大场景：
         <br><br>
         <strong>▸ AI 工作流桥接</strong><br>
-        通过手机聊天实时调用远端主机的 OpenCode agent 能力。一个指令即可将远端文件传输并保存到本地手机，手机也可发送文件或图片到远端。远端 OpenCode 完成任务后，结果会实时推送至手机通知。所有连接可以选择基于外网穿透（P2P 打洞）技术，实现端到端加密 &mdash; 个人数据完全隔离在自有设备中。
+        <ul>
+          <li>一个指令即可控制远端主机 &mdash; 通过 OpenCode 执行任务、比如写代码，整理文件，整理后可将远端文件传输并保存到本地手机、手机也可发送文件或图片到远端等等。</li>
+          <li>远端 OpenCode 完成任务后，结果会实时推送至手机通知。</li>
+        </ul>
+        基于 <strong>LiveKit</strong> 实现手机与远端主机之间的实时信令与数据通道，确保消息可靠投递。
+        所有连接可以选择基于外网穿透（P2P 打洞）技术，推荐免费穿透软件 <strong>Tailscale</strong>，实现端到端加密 &mdash; 个人数据完全隔离在自有设备中。
         <br><br>
         <strong>▸ 远程桌面串流</strong><br>
         作为辅助功能，基于 GStreamer + WebRTC 技术栈实时查看并控制远端主机屏幕。局域网延迟 40–80ms @ 60fps，优化多点触控手势控制，操作流畅自然。
@@ -801,54 +810,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Clone export button into mobile menu
   var desktopActions = document.querySelector('.top-bar-actions');
-  if (desktopActions && mobileActions) {
+  if (desktopActions) {
+    var badgeSpan = desktopActions.querySelector('.badge');
     if (badgeSpan) mobileActions.appendChild(badgeSpan.cloneNode(true));
   }
 
-  // --- Mobile export debug ---
+  // --- Mobile export lang button sync ---
   (function() {
     var me = document.getElementById('mobile-export');
-    if (!me) { console.warn('[MOBILE-EXPORT] Element #mobile-export NOT FOUND in DOM'); return; }
-    var cs = getComputedStyle(me);
-    var btn = me.querySelector('.export-btn');
-    var btnCS = btn ? getComputedStyle(btn) : null;
-    console.log('[MOBILE-EXPORT] === ELEMENT DIAGNOSIS ===');
-    console.log('[MOBILE-EXPORT] viewport width:', window.innerWidth);
-    console.log('[MOBILE-EXPORT] element:', me);
-    console.log('[MOBILE-EXPORT] computed styles:', {
-      display: cs.display,
-      position: cs.position,
-      top: cs.top,
-      left: cs.left,
-      right: cs.right,
-      zIndex: cs.zIndex,
-      visibility: cs.visibility,
-      opacity: cs.opacity,
-      background: cs.background,
-      height: cs.height,
-      transform: cs.transform
-    });
-    console.log('[MOBILE-EXPORT] button:', btn);
-    if (btnCS) {
-      console.log('[MOBILE-EXPORT] button computed styles:', {
-        display: btnCS.display,
-        visibility: btnCS.visibility,
-        opacity: btnCS.opacity,
-        color: btnCS.color,
-        background: btnCS.background
-      });
-    }
-    console.log('[MOBILE-EXPORT] body paddingTop:', getComputedStyle(document.body).paddingTop);
-    // Check z-index stack
-    var topBar = document.querySelector('.top-bar');
-    var mobileMenu = document.getElementById('mobile-menu');
-    if (topBar) console.log('[MOBILE-EXPORT] top-bar z-index:', getComputedStyle(topBar).zIndex);
-    if (mobileMenu) console.log('[MOBILE-EXPORT] mobile-menu z-index:', getComputedStyle(mobileMenu).zIndex);
-    console.log('[MOBILE-EXPORT] =========================');
-    // Visual debug: add a red border if not visible
-    if (cs.display === 'none' || cs.opacity === '0') {
-      console.warn('[MOBILE-EXPORT] *** ELEMENT IS HIDDEN! display=' + cs.display + ' opacity=' + cs.opacity);
-    }
+    if (!me) return;
   })();
 
   if (!nav || !sections.length) return;
