@@ -273,11 +273,10 @@
     margin-bottom: 12px; padding-left: 24px;
   }
   .parallel-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-left: 24px;
+    display: flex; flex-direction: column; gap: 8px; padding-left: 24px;
   }
   .parallel-item {
-    position: relative;
-    padding: 16px 0;
+    padding: 0;
   }
   .parallel-item .entry-company { font-size: 14px; }
   .parallel-item .entry-role { font-size: 13px; }
@@ -287,7 +286,7 @@
     display: none;
   }
   @media (max-width: 600px) {
-    .parallel-grid { grid-template-columns: 1fr; }
+    .parallel-grid { flex-direction: column; }
   }
 
   /* Skills */
