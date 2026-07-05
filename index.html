@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayne LIN — Resume</title>
+<link rel="stylesheet" href="css/index.css">
+<script src="js/lib/marked.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/lib/html2pdf.bundle.min.js"></script>
+<script src="js/theme.js"></script>
+</head>
+<body lang="en" class="lang-en">
+
+<!-- Top bar: nav links + actions -->
+<nav class="top-bar">
+  <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+  <div id="section-nav" class="top-bar-links">
+    <a href="#about" class="en-only">About</a><a href="#about" class="zh-only">关于我</a>
+    <a href="#education" class="en-only">Education</a><a href="#education" class="zh-only">教育背景</a>
+    <a href="#work" class="en-only">Work</a><a href="#work" class="zh-only">工作经历</a>
+    <a href="#projects" class="en-only">Projects</a><a href="#projects" class="zh-only">项目经历</a>
+    <a href="#opensource" class="en-only">Personal</a><a href="#opensource" class="zh-only">个人项目</a>
+    <a href="#skills" class="en-only">Skills</a><a href="#skills" class="zh-only">技术能力</a>
+    <a href="#languages" class="en-only">Languages</a><a href="#languages" class="zh-only">语言能力</a>
+    <a href="#interests" class="en-only">Interests</a><a href="#interests" class="zh-only">兴趣爱好</a>
+  </div>
+  <div class="top-bar-actions">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <button class="export-btn" onclick="exportPDF()">📄 Export PDF</button>
+    <span class="badge">Language / 语言:</span>
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+  </div>
+  <!-- Mobile dropdown menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="mm-actions" id="mm-actions"></div>
+    <div class="mm-links" id="mm-links"></div>
+  </div>
+</nav>
+
+<!-- Mobile action bar: centered export + right-aligned lang switch (below 600px only) -->
+<div id="mobile-export" class="mobile-export">
+  <div class="me-left"></div>
+  <button class="export-btn" onclick="exportPDF()">📄 Export PDF</button>
+  <div class="me-right">
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+  </div>
+</div>
+
+<div id="export-content" class="container">
+
+<!-- Header -->
+<header class="header">
+  <h1 class="en-only">Guiwei (Wayne) LIN</h1>
+  <h1 class="zh-only">林桂伟</h1>
+  <div class="en-only title-en">App Tech Leader · iOS Architect · Project Manager</div>
+  <div class="zh-only title-zh">技术负责人 · iOS 架构师 · 项目经理</div>
+  <div class="contact-row">
+    <span>📧 <a href="mailto:waynewgl@gmail.com">waynewgl@gmail.com</a></span>
+    <span>📧 <a href="mailto:376565795@qq.com">376565795@qq.com</a></span>
+    <span>📱 +86 185 5999 1937</span>
+    <span>🌐 <a href="https://github.com/waynewgl1987" target="_blank">github.com/waynewgl1987</a></span>
+  </div>
+</header>
+
+
+<!-- Self Introduction -->
+<div class="section en-only" id="about">
+  <div class="section-title">About Me</div>
+  <div class="intro-block">
+    <p>App Tech Leader, iOS Architect, and Project Manager. With extensive experience as a Scrum Master driving Agile development, passionate about cutting-edge technologies, with strong learning ability and a drive for elegant architecture. Currently focused on leading cross-platform app delivery across teams of 20–30, driving project modularization with advanced design patterns. Detail-oriented, with a deep understanding of principles and the ability to solve fundamental technical problems. Calm, logical, with excellent emotional control and adjustment skills. Aspiring to work with like-minded partners to create products that truly change people's lifestyles and improve efficiency.</p>
+    <p>AI is advancing at an astonishing pace. My direction now is to harness AI capabilities while delving deep into core principles, creating products that make a real difference.</p>
+    <p><strong>Career Objective:</strong> App Tech Leader, App Project Manager, iOS Architect</p>
+    <p><strong>Date of Birth:</strong> July 7, 1987</p>
+  </div>
+</div>
+
+<div class="section zh-only" id="about">
+  <div class="section-title">关于我</div>
+  <div class="intro-block">
+    <p>App 技术负责人、iOS 架构师和项目经理。拥有丰富的 Scrum Master 敏捷开发经验，热爱前沿技术，学习能力强，追求优雅的架构设计。目前专注于领导跨平台应用交付，管理 20–30 人团队，以前沿架构推动项目模块化。本人注重技术细节，深入原理和解决根本技术问题的思维能力。性格沉稳，逻辑思维清晰，有出色的情绪控制和调节能力。期待与志同道合的伙伴一起，创造出真正改变人们生活方式，提高效率的产品。</p>
+    <p>AI的发展令人震惊，现阶段利用AI的能力，深入底层原理，创造更优秀的产品是我的一个方向。</p>
+    <p><strong>求职意向:</strong> App 技术负责人 / 项目经理 / iOS 架构师</p>
+    <p><strong>出生日期:</strong> 1987.07.07</p>
+  </div>
+</div>
+
+<!-- Education -->
+<div class="section" id="education">
+  <div class="section-title en-only">Education</div>
+  <div class="section-title zh-only">教育背景</div>
+  <div class="timeline">
+
+    <div class="entry">
+      <div class="entry-date">2011.07 – 2012.11</div>
+      <div class="entry-body">
+        <div class="entry-company">University of Sydney</div>
+        <div class="entry-role en-only">Master of Information Technology — Software Engineering</div>
+        <div class="entry-role zh-only">信息技术硕士 — 软件工程</div>
+        <div class="entry-desc en-only">Research project: Plants recognition algorithm</div>
+        <div class="entry-desc zh-only">研究项目: 植物识别算法</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2007.11 – 2010.12</div>
+      <div class="entry-body">
+        <div class="entry-company">University of Wollongong</div>
+        <div class="entry-role en-only">Bachelor of Internet Science and Technology</div>
+        <div class="entry-role zh-only">互联网科学与技术学士</div>
+        <div class="entry-desc en-only">Graduate with distinction · Web development lab tutor</div>
+        <div class="entry-desc zh-only">荣誉毕业生 · 网页开发实验室助教</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Work Experience -->
+<div class="section" id="work">
+  <div class="section-title en-only">Work Experience</div>
+  <div class="section-title zh-only">工作经历</div>
+  <div class="timeline">
+
+    <div class="entry">
+      <div class="entry-date">2021.07 – Present</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Accenture China</div>
+      <div class="entry-company zh-only">埃森哲（中国）</div>
+      <div class="entry-role">App Tech Team Leader &amp; Agile Scrum Master</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Led iOS &amp; Android feature delivery — coding, architecture, and team management (20–30 people)</li>
+          <li class="zh-only">负责 iOS 和 Android 功能交付，团队规模 20–30 人</li>
+          <li class="en-only">As Agile Scrum Master, ensured high-quality story delivery each iteration</li>
+          <li class="zh-only">作为敏捷 Scrum Master，确保每个迭代高质量交付</li>
+          <li class="en-only">Main Project: IHG iOS App redesign — AppStore on sale</li>
+          <li class="zh-only">主要项目: IHG iOS App 重新设计 — AppStore 上架中</li>
+          <li class="en-only">As iOS Tech Leader, resolved complex technical issues and mentored junior engineers to improve team capability</li>
+          <li class="zh-only">作为 iOS 技术负责人，解决复杂技术问题，指导初级工程师，提升团队整体能力</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2019.12 – 2021.07</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Shanghai Essilor Research Center</div>
+      <div class="entry-company zh-only">上海依视路研发中心</div>
+      <div class="entry-role en-only">Mobile App Development Manager</div>
+      <div class="entry-role zh-only">移动应用开发经理</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Led iOS, Web (Vue.js), and WeChat Mini Program development — team of 6</li>
+          <li class="zh-only">负责 iOS、Web (Vue.js) 和微信小程序开发，团队 6 人</li>
+          <li class="en-only">Main projects: Lenscopy App (镜片度数/lens prescription measurement via TinyYolo fine-tuned model), ARKit frame recommendation App</li>
+          <li class="zh-only">主要项目: Lenscopy App（镜片度数，基于 TinyYolo 微调模型识别镜片度数）、AR 眼镜推荐 App</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2019.07 – 2019.12</div>
+      <div class="entry-body">
+      <div class="entry-company">Tata China Consultancy Service</div>
+      <div class="entry-role en-only">iOS App Architect</div>
+      <div class="entry-role zh-only">iOS 应用架构师</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">iOS architecture &amp; development for IHG iOS App (China team, 6 people)</li>
+          <li class="zh-only">为 IHG iOS App 提供架构设计与开发（中国团队 6 人）</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2018.07 – 2019.05</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Self-employed Studio</div>
+      <div class="entry-company zh-only">自主创业工作室</div>
+      <div class="entry-role en-only">Tech &amp; Project Leader</div>
+      <div class="entry-role zh-only">技术 &amp; 项目负责人</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">iOS, Web (Vue.js), WeChat Mini Program, Django backend development</li>
+          <li class="zh-only">iOS、Web (Vue.js)、微信小程序、Django 后端开发</li>
+          <li class="en-only">Projects: Intelligent ice cream machine, intelligent mirror, online shopping WeChat app</li>
+          <li class="zh-only">项目：智能冰淇淋机、智能魔镜、微信商城</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2015.03 – 2018.04</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Fuzhou Starnet E-video Information System Co.</div>
+      <div class="entry-company zh-only">福州星网视易信息系统有限公司</div>
+      <div class="entry-role en-only">Mobile App Team Leader</div>
+      <div class="entry-role zh-only">移动应用团队负责人</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Core developer and project manager — led 4-person mobile team</li>
+          <li class="zh-only">核心开发与项目管理，带领 4 人移动开发团队</li>
+          <li class="en-only">Initial architecture &amp; code development of DuoChang App (iOS/Android/H5)</li>
+          <li class="zh-only">多唱 App 的初始架构与代码开发 (iOS/Android/H5)</li>
+          <li class="en-only">Ranked 56th in App Store music category</li>
+          <li class="zh-only">App Store 音乐类排名 56 位</li>
+          <li class="en-only">2016 Annual Distinctive Employee · Utility Model Patent (wireless casting)</li>
+          <li class="zh-only">2016 年度优秀员工 · 无线投屏实用新型专利</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2013.03 – 2014.11</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">AppTastic Software Tech Co. (Australia)</div>
+      <div class="entry-company zh-only">澳大利亚 AppTastic 软件科技公司</div>
+      <div class="entry-role en-only">Mobile Application Developer</div>
+      <div class="entry-role zh-only">移动应用开发工程师</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">iOS application development + Rails backend server</li>
+          <li class="zh-only">iOS 应用开发 + Rails 后端服务器</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Project Experience -->
+<div class="section" id="projects">
+  <div class="section-title en-only">Project Experience</div>
+  <div class="section-title zh-only">项目经历</div>
+  <div class="timeline">
+
+    <div class="entry">
+      <div class="entry-date">2021.07 – Present</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">IHG App — Redesign Version (InterContinental Hotels Group)</div>
+      <div class="entry-company zh-only">IHG App 重新设计（洲际酒店集团）</div>
+      <div class="entry-role en-only">App Tech Team Leader &amp; Agile Scrum Master</div>
+      <div class="entry-role zh-only">App 技术负责人 &amp; 敏捷 Scrum Master</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 20–30 people, varied by requirement</li>
+          <li class="zh-only">团队规模: 20–30 人，视需求变化</li>
+          <li class="en-only">Programming languages: Swift, SwiftUI</li>
+          <li class="zh-only">编程语言: Swift, SwiftUI</li>
+          <li class="en-only">Development environment: Mac, XCode</li>
+          <li class="zh-only">开发环境: Mac, XCode</li>
+          <li class="en-only"><strong>Work scope, each sprint:</strong></li>
+          <li class="zh-only"><strong>每个 Sprint 工作范围:</strong></li>
+          <li class="en-only">1. Analyzing product owner's requirement, delivering high quality app features</li>
+          <li class="zh-only">1. 分析产品需求，交付高质量功能</li>
+          <li class="en-only">2. Resolve risks from user story by coordinating &amp; communicating with US global team</li>
+          <li class="zh-only">2. 与美国全球团队协调沟通，化解需求风险</li>
+          <li class="en-only">3. Trace stacktraces to root cause, solve complex technical issues, keep iOS crash rate at 0%</li>
+          <li class="zh-only">3. 追踪 stacktrace 深入 root cause，解决复杂技术问题，保持 iOS 崩溃率在 0%</li>
+          <li class="en-only">4. Keep team up to date with latest tech trends, e.g. Swift 6 concurrency upgrade</li>
+          <li class="zh-only">4. 推动团队跟进前沿技术，如 Swift 6 并发升级</li>
+          <li class="en-only"><strong>Status:</strong> AppStore on sale</li>
+          <li class="zh-only"><strong>状态:</strong> AppStore 已上架</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2019.12 – 2021.07</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Lenscopy App (镜片读数)</div>
+      <div class="entry-company zh-only">Lenscopy App（镜片读数）</div>
+      <div class="entry-role en-only">Mobile App Manager &amp; App Architect</div>
+      <div class="entry-role zh-only">移动应用经理 &amp; 架构师</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 7 people</li>
+          <li class="zh-only">团队规模: 7 人</li>
+          <li class="en-only">Project Description: Use mobile camera to measure the lens prescription — TinyYolo fine-tuned model recognizes lens grade, OpenCV extracts image matrices for preprocessing and analysis</li>
+          <li class="zh-only">项目描述: 用手机摄像头测量镜片度数 — 基于 TinyYolo 微调模型识别镜片度数，通过 OpenCV 获取图像矩阵进行预处理和分析</li>
+          <li class="en-only">Programming languages: Objective-C, OpenCV, TensorFlow Lite</li>
+          <li class="zh-only">编程语言: Objective-C, OpenCV, TensorFlow Lite</li>
+          <li class="en-only">Development environment: Mac, XCode</li>
+          <li class="zh-only">开发环境: Mac, XCode</li>
+          <li class="en-only"><strong>Status:</strong> AppStore on sale</li>
+          <li class="zh-only"><strong>状态:</strong> AppStore 已上架</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2019.12 – 2021.07</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Glass Frame Recommendation App (镜框佩戴推荐App)</div>
+      <div class="entry-company zh-only">镜框佩戴推荐 App</div>
+      <div class="entry-role en-only">Mobile App Architecture &amp; Development</div>
+      <div class="entry-role zh-only">移动应用架构与开发</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 4 people</li>
+          <li class="zh-only">团队规模: 4 人</li>
+          <li class="en-only">Project Description: Use mobile camera with ARKit to give users recommended frame with the most comfortable size</li>
+          <li class="zh-only">项目描述: 用 ARKit + 摄像头推荐最合适尺寸的镜框</li>
+          <li class="en-only">Programming languages: Objective-C, ARKit, OpenCV, TensorFlow Lite</li>
+          <li class="zh-only">编程语言: Objective-C, ARKit, OpenCV, TensorFlow Lite</li>
+          <li class="en-only">Development environment: Mac, XCode</li>
+          <li class="zh-only">开发环境: Mac, XCode</li>
+          <li class="en-only"><strong>Status:</strong> Not finished</li>
+          <li class="zh-only"><strong>状态:</strong> 未完成</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2019.07 – 2019.12</div>
+      <div class="entry-body">
+      <div class="entry-company">IHG iOS App</div>
+      <div class="entry-role en-only">iOS Architect</div>
+      <div class="entry-role zh-only">iOS 架构师</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 6 people in China</li>
+          <li class="zh-only">团队规模: 中国团队 6 人</li>
+          <li class="en-only">Project Description: IHG hotel booking App. Booking with Alipay and WeChat Pay</li>
+          <li class="zh-only">项目描述: IHG 酒店预订 App，支持支付宝和微信支付</li>
+          <li class="en-only">Programming languages: Swift, Objective-C</li>
+          <li class="zh-only">编程语言: Swift, Objective-C</li>
+          <li class="en-only">Development environment: Mac, XCode</li>
+          <li class="zh-only">开发环境: Mac, XCode</li>
+          <li class="en-only"><strong>Status:</strong> AppStore on sale</li>
+          <li class="zh-only"><strong>状态:</strong> AppStore 已上架</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    
+
+    <div class="entry entry-parallel">
+      <div class="entry-date">2018.06 – 2019.06</div>
+      <div class="entry-body">
+      <div class="entry-parallel-label en-only">Parallel Startup Projects</div>
+      <div class="entry-parallel-label zh-only">并行创业项目</div>
+      <div class="parallel-grid">
+        <div class="parallel-item">
+          <div class="entry-company en-only">Intelligent Ice Cream Auto Seller Machine</div>
+          <div class="entry-company zh-only">智能冰淇淋自动售货机</div>
+          <div class="entry-role en-only">App Tech Lead &amp; Project Manager</div>
+          <div class="entry-role zh-only">项目技术负责人 &amp; 项目经理</div>
+      <div class="entry-date">2018.06 – 2018.09</div>
+          <div class="entry-desc">
+            <ul>
+              <li class="en-only">Team member: 8 people</li>
+              <li class="zh-only">团队规模: 8 人</li>
+              <li class="en-only">Project Description: Portable intelligent ice cream machine, embedded with Android device, providing users with purchase function to buy ice cream</li>
+              <li class="zh-only">项目描述: 便携式嵌入式 Android 冰淇淋机，提供用户购买功能</li>
+              <li class="en-only">Programming languages: Python, Django, HTML/CSS, Android, Java</li>
+              <li class="zh-only">编程语言: Python, Django, HTML/CSS, Android, Java</li>
+              <li class="en-only">Development environment: Mac, WebStorm, PyCharm, Android Studio</li>
+              <li class="zh-only">开发环境: Mac, WebStorm, PyCharm, Android Studio</li>
+              <li class="en-only">Project type: Startup project</li>
+              <li class="zh-only">项目类型: 创业项目</li>
+            </ul>
+          </div>
+        </div>
+        <div class="parallel-item">
+          <div class="entry-company en-only">Intelligent Mirror</div>
+          <div class="entry-company zh-only">智能魔镜</div>
+      <div class="entry-role en-only">Backend Server Developer &amp; iOS App Developer</div>
+      <div class="entry-role zh-only">后端服务器开发 &amp; iOS 应用开发</div>
+      <div class="entry-date">2018.09 – 2018.12</div>
+          <div class="entry-desc">
+            <ul>
+              <li class="en-only">Team member: 4 people</li>
+              <li class="zh-only">团队规模: 4 人</li>
+              <li class="en-only">Project Description: Intelligent mirror embedded with Android device, collecting, analyzing and displaying data of weight and moisture degree of skin by using external sensors</li>
+              <li class="zh-only">项目描述: 嵌入式 Android 智能魔镜，通过外部传感器采集分析皮肤重量和水分数据</li>
+              <li class="en-only">Programming languages: Objective-C, Python, Django, Vue.js, Android, Java</li>
+              <li class="zh-only">编程语言: Objective-C, Python, Django, Vue.js, Android, Java</li>
+              <li class="en-only">Development environment: Mac, WebStorm, PyCharm, Android Studio</li>
+              <li class="zh-only">开发环境: Mac, WebStorm, PyCharm, Android Studio</li>
+              <li class="en-only">Project type: Startup project</li>
+              <li class="zh-only">项目类型: 创业项目</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2018.05 – 2018.06</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">ZhongRui Theater — WeChat Mini Program</div>
+      <div class="entry-company zh-only">中瑞剧坊 — 微信小程序</div>
+      <div class="entry-role en-only">Developer, System Architect &amp; Project Lead</div>
+      <div class="entry-role zh-only">开发、系统架构师 &amp; 项目负责人</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 4 people</li>
+          <li class="zh-only">团队规模: 4 人</li>
+          <li class="en-only">Project Description: Online ticket booking system for ZhongRui Theater. Support WeChat Pay</li>
+          <li class="zh-only">项目描述: 中瑞剧坊在线订票系统，支持微信支付</li>
+          <li class="en-only">Programming languages: HTML, CSS, WeChat Mini Program, SpringBoot, Vue.js</li>
+          <li class="zh-only">编程语言: HTML, CSS, 微信小程序, SpringBoot, Vue.js</li>
+          <li class="en-only">Development environment: Mac, WebStorm</li>
+          <li class="zh-only">开发环境: Mac, WebStorm</li>
+          <li class="en-only">Project type: Startup project</li>
+          <li class="zh-only">项目类型: 创业项目</li>
+          <li class="en-only"><strong>Status:</strong> Search "中瑞剧坊" inside WeChat Mini Program</li>
+          <li class="zh-only"><strong>状态:</strong> 微信搜索「中瑞剧坊」可查看</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2015.03 – 2018.03</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">DuoChang App (多唱) + WeChat H5 WebApp</div>
+      <div class="entry-company zh-only">多唱 App + 微信 H5 应用</div>
+      <div class="entry-role en-only">iOS Architect &amp; Team Leader</div>
+      <div class="entry-role zh-only">iOS 架构师 &amp; 团队负责人</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Role: App architect, mobile team leader, project manager</li>
+          <li class="zh-only">角色: App 架构师、移动团队负责人、项目经理</li>
+          <li class="en-only">Team member: 7 people</li>
+          <li class="zh-only">团队规模: 7 人</li>
+          <li class="en-only">Project Description: Wireless remote control and social interaction for DUOCHANG set-top boxes (D60, K70, K10) — Android-based karaoke entertainment products</li>
+          <li class="zh-only">项目描述: 为多唱机顶盒（D60/K70/K10，Android 系统卡拉OK娱乐产品）提供无线遥控与社交互动功能</li>
+          <li class="en-only">Programming languages: Objective-C, Android, Vue.js, RabbitMQ</li>
+          <li class="zh-only">编程语言: Objective-C, Android, Vue.js, RabbitMQ</li>
+          <li class="en-only">Development environment: XCode, Android Studio, WebStorm</li>
+          <li class="zh-only">开发环境: XCode, Android Studio, WebStorm</li>
+          <li class="en-only"><strong>Status:</strong> App Store on sale — Ranked #56 in Music category</li>
+          <li class="zh-only"><strong>状态:</strong> AppStore 已上架，音乐类排名第 56 位</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2014.12 – 2015.03</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Time Capsule</div>
+      <div class="entry-company zh-only">时光胶囊</div>
+      <div class="entry-role en-only">iOS &amp; Server Developer (Self-employed)</div>
+      <div class="entry-role zh-only">iOS &amp; 后端开发（自主）</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 2 people</li>
+          <li class="zh-only">团队规模: 2 人</li>
+          <li class="en-only">Project Description: Leave a time capsule at your current location — only people nearby can discover and interact with it based on location.</li>
+          <li class="zh-only">项目描述: 用户在当前地理位置留下一个时间胶囊，到附近的人才能看到并基于这个胶囊进行互动。</li>
+          <li class="en-only">Programming languages: Objective-C, Ruby on Rails</li>
+          <li class="zh-only">编程语言: Objective-C, Ruby on Rails</li>
+          <li class="en-only">Development environment: Mac, XCode, RubyMine, Aliyun Server (Ubuntu)</li>
+          <li class="zh-only">开发环境: Mac, XCode, RubyMine, 阿里云服务器 (Ubuntu)</li>
+          <li class="en-only">Project type: Startup project</li>
+          <li class="zh-only">项目类型: 创业项目</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">2013.01 – 2014.12</div>
+      <div class="entry-body">
+      <div class="entry-company en-only">Travel Meeting Point App</div>
+      <div class="entry-company zh-only">旅行交友 App</div>
+      <div class="entry-role en-only">iOS Developer</div>
+      <div class="entry-role zh-only">iOS 开发</div>
+      <div class="entry-desc">
+        <ul>
+          <li class="en-only">Team member: 4 people</li>
+          <li class="zh-only">团队规模: 4 人</li>
+          <li class="en-only">Project Description: LBS-based social app for arranging parties with strangers at travel resorts, sharing interesting events</li>
+          <li class="zh-only">项目描述: 基于位置的社交应用，在旅游景点与陌生人组织聚会、分享趣事</li>
+          <li class="en-only">Programming languages: Objective-C</li>
+          <li class="zh-only">编程语言: Objective-C</li>
+          <li class="en-only">Development environment: Mac, XCode</li>
+          <li class="zh-only">开发环境: Mac, XCode</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Public Projects -->
+<div class="section" id="opensource">
+  <div class="section-title en-only">Personal Projects</div>
+  <div class="section-title zh-only">个人项目</div>
+  <div class="project-build-note en-only">
+    <p>The following projects were architected with <strong>OpenCode + DeepSeek</strong> for foundation and basic feature implementation. Complex technical challenges were solved with <strong>GitHub Copilot + Claude Opus 4.6/4.7</strong>. Each project took 3 days to 1 week.</p>
+  </div>
+  <div class="project-build-note zh-only">
+    <p>以下项目利用 <strong>OpenCode + DeepSeek</strong> 设计架构、搭建基础架构和基本功能实现。复杂技术问题靠 <strong>GitHub Copilot + Claude Opus 4.6/4.7</strong> 解决，每个项目耗时 3 天到 1 周不等。</p>
+  </div>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="project-name">
+        <span>OpenFarBuddies</span>
+        <a href="https://waynewgl1987.github.io/RollOrNot/openfarbuddies/#%E4%B8%AD%E6%96%87" target="_blank">Project Page ↗</a>
+      </div>
+      <div class="project-desc en-only">
+        Cross-platform remote desktop &amp; AI bridge system built on GStreamer's multimedia pipeline, solving two key scenarios:
+        <br><br>
+        <strong>▸ AI Workflow Bridge</strong><br>
+        <ul>
+          <li>One command to control the remote host &mdash; execute tasks via OpenCode agent (write code, organize files), transfer organized files from remote to phone, or send files/images from phone to remote.</li>
+          <li>When OpenCode finishes a task, results are instantly pushed to your phone as a notification.</li>
+        </ul>
+        Using <strong>LiveKit</strong> as the real-time signaling &amp; data channel layer for reliable message delivery between phone and remote host.
+        All connections can optionally leverage NAT traversal (P2P hole punching) via free tools like <strong>Tailscale</strong> for end-to-end encryption &mdash; personal data stays fully isolated on your own devices.
+        <br><br>
+        <strong>▸ Remote Desktop Streaming</strong><br>
+        Real-time remote desktop viewing and control via GStreamer + WebRTC stack — an auxiliary feature to see and interact with the remote host screen. LAN latency 40–80ms @ 60fps with optimized multi-touch gesture controls for smooth operation.
+        <br><br>
+        Native clients for iOS/Android/macOS &mdash; one-click deployment.
+      </div>
+      <div class="project-desc zh-only">
+        基于 GStreamer 多媒体管道的跨平台远程桌面与 AI 桥接系统，主要解决两大场景：
+        <br><br>
+        <strong>▸ AI 工作流桥接</strong><br>
+        <ul>
+          <li>一个指令即可控制远端主机 &mdash; 通过 OpenCode 执行任务、比如写代码，整理文件，整理后可将远端文件传输并保存到本地手机、手机也可发送文件或图片到远端等等。</li>
+          <li>远端 OpenCode 完成任务后，结果会实时推送至手机通知。</li>
+        </ul>
+        基于 <strong>LiveKit</strong> 实现手机与远端主机之间的实时信令与数据通道，确保消息可靠投递。
+        所有连接可以选择基于外网穿透（P2P 打洞）技术，推荐免费穿透软件 <strong>Tailscale</strong>，实现端到端加密 &mdash; 个人数据完全隔离在自有设备中。
+        <br><br>
+        <strong>▸ 远程桌面串流</strong><br>
+        作为辅助功能，基于 GStreamer + WebRTC 技术栈实时查看并控制远端主机屏幕。局域网延迟 40–80ms @ 60fps，优化多点触控手势控制，操作流畅自然。
+        <br><br>
+        提供 iOS/Android/macOS 原生客户端，一键部署。
+      </div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span>SwiftUI</span><span>Kotlin</span><span>GStreamer</span><span>WebRTC</span><span>Python</span><span>AI</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="en-only">Demo Video (coming soon)</a>
+          <a href="#" class="zh-only">演示视频（待上传）</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-name">
+        <span>RollOrNot (卷不卷)</span>
+        <div class="project-links-row">
+          <a href="https://github.com/waynewgl1987/RollOrNot" target="_blank">GitHub ↗</a>
+          <a href="https://apps.apple.com/cn/app/%E5%8D%B7%E4%B8%8D%E5%8D%B7/id6782900533" target="_blank">AppStore ↗</a>
+          <a href="https://waynewgl1987.github.io/RollOrNot/marketing/" target="_blank">Marketing ↗</a>
+        </div>
+      </div>
+      <div class="project-desc en-only">
+        AI-Powered Study Companion for iOS &mdash; solving the pain point of parents organizing questions and explaining knowledge points. All content is AI-generated in real time, designed to make learning more engaging and fun (since exam-oriented education can feel overly rigid):
+        <br><br>
+        <strong>▸ AI Question Bank &amp; Printing</strong><br>
+        One tap to AI-generate similar questions from any source material, ready to print directly.
+        <br><br>
+        <strong>▸ AI Mind Maps</strong><br>
+        Real-time AI-generated mind maps that visually structure knowledge for better understanding.
+        <br><br>
+        <strong>▸ Scene &amp; Associative Memory Animations</strong><br>
+        AI-powered animated scenes and associative memory visuals to reinforce concepts.
+        <br><br>
+        <strong>▸ Interactive Mini-Games</strong><br>
+        Real-time mini-games that deepen memory understanding through engaging play.
+        <br><br>
+        <strong>▸ LiDAR 3D Scanning</strong><br>
+        Fun object scanning with LiDAR — AI analyzes scanned objects in real time and records the analysis for future review.
+        <br><br>
+        Built with SwiftUI + SwiftData, featuring multi-provider LLM analysis (Ollama/OpenAI/Claude), and bilingual (EN/ZH/繁) support.
+      </div>
+      <div class="project-desc zh-only">
+        AI 智能学习伴侣 iOS App &mdash; 解决家长整理题目和解释知识点的痛点，所有内容 AI 实时生成，旨在增强学习的趣味性（毕竟中国应试教育还是过于枯燥）：
+        <br><br>
+        <strong>▸ AI 题库与打印</strong><br>
+        任何题目均可一键 AI 生成相似题，直接打印使用。
+        <br><br>
+        <strong>▸ AI 思维导图</strong><br>
+        实时 AI 生成思维导图，将知识点可视化梳理，帮助理解记忆。
+        <br><br>
+        <strong>▸ 情景动画与联想记忆</strong><br>
+        AI 驱动的场景动画和联想记忆画面，强化知识点印象。
+        <br><br>
+        <strong>▸ 互动小游戏</strong><br>
+        实时生成小游戏，在趣味互动中深化记忆点理解。
+        <br><br>
+        <strong>▸ LiDAR 3D 趣味扫描</strong><br>
+        趣味扫描物体，AI 实时分析并记录扫描结果，建立个人知识库。
+        <br><br>
+        基于 SwiftUI + SwiftData 构建，支持多供应商 LLM 分析 (Ollama/OpenAI/Claude)，完整的中英繁三语支持。
+      </div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span>SwiftUI</span><span>ARKit</span><span>LiDAR</span><span>AI</span><span>iOS</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="en-only">Demo Video (coming soon)</a>
+          <a href="#" class="zh-only">演示视频（待上传）</a>
+        </div>
+      </div>
+      <div class="project-status published en-only">AppStore</div>
+      <div class="project-status published zh-only">已上架 AppStore</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-name">
+        <span>Dual N Back Training (回溯记忆训练)</span>
+      </div>
+      <div class="project-desc en-only">
+        A WeChat Mini Program brain training game based on the dual n-back cognitive training theory — a scientifically validated method to improve working memory and fluid intelligence. Challenge both auditory and visual memory simultaneously with adjustable difficulty levels. Search "回溯记忆训练" on WeChat to play.
+      </div>
+      <div class="project-desc zh-only">
+        基于经典 dual n-back 认知训练理论，通过同时挑战听觉与视觉记忆，有效提升工作记忆和流体智力。支持难度调节，微信内搜索「回溯记忆训练」即可体验。
+      </div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span>WeChat Mini Program</span><span>JavaScript</span>
+          <span class="skill-tag" data-skill="dual-n-back" data-title-en="Dual N Back Training" data-title-zh="回溯记忆训练">Learn More ↗</span>
+        </div>
+      </div>
+      <div class="project-status published en-only">WeChat Mini Program</div>
+      <div class="project-status published zh-only">已上架微信小程序</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-name">
+        <span>GitFlowAIManageBoard</span>
+        <a href="https://github.com/waynewgl1987/GitFlowAIManageBoard" target="_blank">GitHub ↗</a>
+      </div>
+      <div class="project-desc en-only">
+        Lightweight, browser-based Git dashboard with built-in AI assistant. Single-file Python script wrapping common git commands into an intuitive UI with AI-powered conflict resolution, commit suggestions, and code review. Supports Claude, GPT, DeepSeek, Ollama. Zero dependencies beyond Python 3 and Git.
+      </div>
+      <div class="project-desc zh-only">
+        轻量级浏览器 Git 可视化管理面板，内置 AI 智能助手。单文件 Python 脚本，将常用 git 操作封装成直观界面，支持 AI 冲突解决、提交建议和代码审查。支持 Claude、GPT、DeepSeek、Ollama 等模型。仅需 Python 3 和 Git。
+      </div>
+      <div class="project-meta">
+        <div class="project-tags">
+          <span>Python</span><span>Git</span><span>AI</span><span>Web UI</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="en-only">Demo Video (coming soon)</a>
+          <a href="#" class="zh-only">演示视频（待上传）</a>
+        </div>
+      </div>
+      <div class="project-status published en-only">MIT Open Source</div>
+      <div class="project-status published zh-only">已 MIT 开源</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Skills -->
+<div class="section" id="skills">
+  <div class="section-title en-only">Technical Skills</div>
+  <div class="section-title zh-only">技术能力</div>
+  <div class="skills-category en-only">Programming Languages</div>
+  <div class="skills-category zh-only">编程语言</div>
+  <div class="skills-grid">
+    <span class="skill-tag" data-skill="swift-swiftui">Swift / SwiftUI ↗</span>
+    <span class="skill-tag" data-skill="objective-c">Objective-C ↗</span>
+    <span class="skill-tag" data-skill="python">Python ↗</span>
+    <span class="skill-tag" data-skill="javascript-typescript">JavaScript / TypeScript ↗</span>
+  </div>
+  <div class="skills-category en-only">Frameworks &amp; Libraries</div>
+  <div class="skills-category zh-only">框架与类库</div>
+  <div class="skills-grid">
+    <span class="skill-tag" data-skill="vuejs">Vue.js ↗</span>
+    <span class="skill-tag" data-skill="django">Django ↗</span>
+    <span class="skill-tag" data-skill="ruby-on-rails">Ruby on Rails ↗</span>
+    <span class="skill-tag" data-skill="webrtc">WebRTC ↗</span>
+    <span class="skill-tag" data-skill="websocket">WebSocket ↗</span>
+    <span class="skill-tag" data-skill="gstreamer">GStreamer ↗</span>
+  </div>
+  <div class="skills-category en-only">Core Technologies</div>
+  <div class="skills-category zh-only">底层技术</div>
+  <div class="skills-grid">
+    <span class="skill-tag" data-skill="arkit">ARKit ↗</span>
+    <span class="skill-tag" data-skill="opencv">OpenCV ↗</span>
+    <span class="skill-tag" data-skill="tensorflow-lite">TensorFlow Lite ↗</span>
+    <span class="skill-tag" data-skill="git-gitflow">Git / GitFlow ↗</span>
+  </div>
+  <div class="skills-category en-only">Methodology</div>
+  <div class="skills-category zh-only">开发方法</div>
+  <div class="skills-grid">
+    <span class="skill-tag" data-skill="agile-scrum">Agile / Scrum ↗</span>
+  </div>
+</div>
+
+<!-- Languages & Hobbies -->
+<div class="section" id="languages">
+  <div class="section-title en-only">Languages</div>
+  <div class="section-title zh-only">语言能力</div>
+      <div class="languages-content">
+        <div class="lang-entry">
+      <strong class="en-only">English:</strong>
+      <strong class="zh-only">英语：</strong>
+      <span class="en-only">PTE 76 (IELTS 7.5 equivalent) — Listening 77, Reading 70, Speaking 85, Writing 77</span>
+      <span class="zh-only">PTE 76 分（相当于 IELTS 7.5）— 听力 77, 阅读 70, 口语 85, 写作 77</span>
+    </div>
+    <div>
+      <strong class="en-only">Chinese:</strong>
+      <strong class="zh-only">中文：</strong>
+      <span class="en-only">Native (Mandarin)</span>
+      <span class="zh-only">母语（普通话）</span>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="interests">
+  <div class="section-title en-only">Interests</div>
+  <div class="section-title zh-only">兴趣爱好</div>
+  <div class="hobbies">
+    <span class="hobby-tag en-only">Basketball</span>
+    <span class="hobby-tag zh-only">篮球</span>
+    <span class="hobby-tag en-only">Chinese Chess</span>
+    <span class="hobby-tag zh-only">中国象棋</span>
+    <span class="hobby-tag en-only">Reading</span>
+    <span class="hobby-tag zh-only">阅读</span>
+    <span class="hobby-tag en-only">Music</span>
+    <span class="hobby-tag zh-only">音乐</span>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p class="en-only">© 2026 Guiwei (Wayne) LIN. Built with passion.</p>
+  <p class="zh-only">© 2026 林桂伟 (Wayne). 用心构建。</p>
+</footer>
+
+</div><!-- /export-content -->
+
+<script src="js/export.js"></script>
+<script src="js/index.js"></script>
+<script>
+// Mobile menu toggle
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('show');
+}
+
+// Close mobile menu when tapping outside
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('mobile-menu');
+  var hamburger = document.querySelector('.hamburger');
+  if (menu && menu.classList.contains('show')
+    && !menu.contains(e.target)
+    && !hamburger.contains(e.target)) {
+    menu.classList.remove('show');
+  }
+});
+
+// Sticky section nav with fixed header offset
+document.addEventListener('DOMContentLoaded', function() {
+  var sections = document.querySelectorAll('.section[id]');
+  var nav = document.getElementById('section-nav');
+  var mobileLinks = document.getElementById('mm-links');
+  var mobileActions = document.getElementById('mm-actions');
+ 
+  // Populate mobile menu from desktop nav
+  if (nav && mobileLinks) {
+    var desktopLinks = nav.querySelectorAll('a');
+    desktopLinks.forEach(function(a) {
+      var clone = a.cloneNode(true);
+      clone.addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetId = this.getAttribute('href').slice(1);
+        var target = document.getElementById(targetId);
+        if (target) {
+          var HEADER_OFFSET = 72;
+          var top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+        document.getElementById('mobile-menu').classList.remove('show');
+      });
+      mobileLinks.appendChild(clone);
+    });
+  }
+
+  // Update export button text based on current language
+  function updateExportBtnText() {
+    var isZh = document.body.classList.contains('lang-zh');
+    document.querySelectorAll('.export-btn').forEach(function(b) {
+      b.textContent = isZh ? '📄 导出PDF' : '📄 Export PDF';
+    });
+  }
+  // Listen for real-time language changes
+  document.addEventListener('langchange', updateExportBtnText);
+  // Set initial text
+  updateExportBtnText();
+
+  // Clone export button into mobile menu
+  var desktopActions = document.querySelector('.top-bar-actions');
+  if (desktopActions && mobileActions) {
+    if (badgeSpan) mobileActions.appendChild(badgeSpan.cloneNode(true));
+  }
+
+  // --- Mobile export debug ---
+  (function() {
+    var me = document.getElementById('mobile-export');
+    if (!me) { console.warn('[MOBILE-EXPORT] Element #mobile-export NOT FOUND in DOM'); return; }
+    var cs = getComputedStyle(me);
+    var btn = me.querySelector('.export-btn');
+    var btnCS = btn ? getComputedStyle(btn) : null;
+    console.log('[MOBILE-EXPORT] === ELEMENT DIAGNOSIS ===');
+    console.log('[MOBILE-EXPORT] viewport width:', window.innerWidth);
+    console.log('[MOBILE-EXPORT] element:', me);
+    console.log('[MOBILE-EXPORT] computed styles:', {
+      display: cs.display,
+      position: cs.position,
+      top: cs.top,
+      left: cs.left,
+      right: cs.right,
+      zIndex: cs.zIndex,
+      visibility: cs.visibility,
+      opacity: cs.opacity,
+      background: cs.background,
+      height: cs.height,
+      transform: cs.transform
+    });
+    console.log('[MOBILE-EXPORT] button:', btn);
+    if (btnCS) {
+      console.log('[MOBILE-EXPORT] button computed styles:', {
+        display: btnCS.display,
+        visibility: btnCS.visibility,
+        opacity: btnCS.opacity,
+        color: btnCS.color,
+        background: btnCS.background
+      });
+    }
+    console.log('[MOBILE-EXPORT] body paddingTop:', getComputedStyle(document.body).paddingTop);
+    // Check z-index stack
+    var topBar = document.querySelector('.top-bar');
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (topBar) console.log('[MOBILE-EXPORT] top-bar z-index:', getComputedStyle(topBar).zIndex);
+    if (mobileMenu) console.log('[MOBILE-EXPORT] mobile-menu z-index:', getComputedStyle(mobileMenu).zIndex);
+    console.log('[MOBILE-EXPORT] =========================');
+    // Visual debug: add a red border if not visible
+    if (cs.display === 'none' || cs.opacity === '0') {
+      console.warn('[MOBILE-EXPORT] *** ELEMENT IS HIDDEN! display=' + cs.display + ' opacity=' + cs.opacity);
+    }
+  })();
+
+  if (!nav || !sections.length) return;
+  var HEADER_OFFSET = 72;
+
+  // Desktop nav links
+  var links = nav.querySelectorAll('a');
+  links.forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('href').slice(1);
+      var target = document.getElementById(targetId);
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Highlight active section (on both desktop and mobile links)
+  var allLinks = document.querySelectorAll('.top-bar-links a, .mm-links a');
+  function onScroll() {
+    var scrollPos = window.scrollY + HEADER_OFFSET + 10;
+    var currentId = '';
+    sections.forEach(function(s) {
+      if (s.offsetTop <= scrollPos) currentId = s.id;
+    });
+    allLinks.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+    });
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+});
+</script>
+
+<!-- Skill Detail Modal -->
+<div id="skill-modal" class="skill-modal-overlay" style="display:none;">
+  <div class="skill-modal">
+    <div class="skill-modal-header">
+      <h2 id="skill-modal-title"></h2>
+      <button class="skill-modal-close" onclick="closeSkillModal()">&times;</button>
+    </div>
+    <div class="skill-modal-body" id="skill-modal-body"></div>
+  </div>
+</div>
+</body>
+</html>
