@@ -598,5 +598,6 @@ footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); 
 body { padding-top: 0 !important; }
 .container { padding: 20px !important; }
 .skill-modal-overlay { display: none !important; }
-  .section { page-break-inside: avoid; }
+  .section { break-inside: avoid; }
+  .section-title { break-after: avoid; }
 }

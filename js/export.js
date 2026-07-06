@@ -133,6 +133,10 @@ function getPrintCSS() {
     '  .project-card { break-inside: avoid; }',
     '  .header { break-inside: avoid; }',
     '  .parallel-item { break-inside: avoid; }',
+    '  .section-title { break-after: avoid; }',
+    '  .section { break-inside: avoid; }',
+    '  #work, #projects, #opensource, #skills, #languages, #interests { break-before: auto; }',
+    '  .section-title + .timeline, .section-title + .skills-grid, .section-title + .project-grid { break-before: avoid; }',
     '  @page { margin: 20px 0 10px 0; size: A4; }',
     '}',
   ].join('\n');
