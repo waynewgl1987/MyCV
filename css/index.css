@@ -265,8 +265,7 @@
   .project-links-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
   /* Parallel projects */
-  .entry-parallel .entry-body::before { display: none; }
-  .entry-parallel .entry-body { padding-left: 0; }
+  .entry-parallel .entry-body { padding-left: 24px; }
   .entry-parallel-label {
     font-size: 12px; font-weight: 600; text-transform: uppercase;
     letter-spacing: 0.05em; color: var(--muted);

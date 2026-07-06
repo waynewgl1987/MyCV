@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function closeSkillModal() {
   document.getElementById('skill-modal').style.display = 'none';
   document.body.style.overflow = '';
+  currentSkill = null;
 }
 
 // Close modal on overlay click

@@ -115,11 +115,10 @@ function getPrintCSS() {
     '.languages-content { font-size: 14.5px; }',
     '.lang-entry { margin-bottom: 3px; }',
 
-    '.entry-parallel .entry-body::before { display: none; }',
-    '.entry-parallel .entry-body { padding-left: 0; }',
+    '.entry-parallel .entry-body { padding-left: 20px; }',
     '.entry-parallel-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-bottom: 8px; padding-left: 20px; }',
     '.parallel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-left: 20px; }',
-    '.parallel-item { padding: 8px 10px; background: #f8f9fe; border-radius: 8px; border: 1px solid #e0e2ec; }',
+    '.parallel-item { padding: 0; background: none; border-radius: 0; border: none; }',
     '.parallel-item::before { display: none; }',
     '.parallel-item .entry-company { font-size: 14px; }',
     '.parallel-item .entry-role { font-size: 13px; }',
