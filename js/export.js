@@ -34,13 +34,18 @@ function exportPDF() {
     }
   }
 
-  // Remove clickable links (except skills): replace <a> with plain text
+  // Remove clickable links (except skills): remove project/external links entirely, replace others with text
   var links = clone.querySelectorAll('a');
   for (var l = links.length - 1; l >= 0; l--) {
     var link = links[l];
     if (link.closest('.skills-grid')) continue;
-    var text = document.createTextNode(link.textContent);
-    link.parentNode.replaceChild(text, link);
+    // Remove project links entirely (Project Page, AppStore, Marketing, GitHub, Demo Video etc.)
+    if (link.closest('.project-name') || link.closest('.project-links-row') || link.closest('.project-links')) {
+      link.parentNode.removeChild(link);
+    } else {
+      var text = document.createTextNode(link.textContent);
+      link.parentNode.replaceChild(text, link);
+    }
   }
 
   // Remove UI elements
