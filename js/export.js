@@ -1,8 +1,8 @@
 /**
  * export.js — PDF Export module
  *
- * Opens a print-ready window with formatted resume content.
- * User saves as PDF via browser print dialog (Cmd+P → Save as PDF).
+ * Uses html2pdf.js to generate a downloadable PDF with clickable links
+ * and no browser-imposed headers/footers (date, URL, page numbers).
  */
 
 function exportPDF() {
@@ -12,6 +12,10 @@ function exportPDF() {
     alert(isZh ? '错误：未找到导出内容' : 'Error: Export content not found');
     return;
   }
+
+  // Disable button during export
+  var btns = document.querySelectorAll('.export-btn');
+  btns.forEach(function(b) { b.disabled = true; });
 
   var clone = content.cloneNode(true);
   clone.removeAttribute('id');
@@ -40,21 +44,39 @@ function exportPDF() {
     uiEls[k].parentNode.removeChild(uiEls[k]);
   }
 
-  var printWin = window.open('', '_blank');
-  if (!printWin) {
-    alert(isZh ? '请允许弹出窗口' : 'Please allow popups');
-    return;
-  }
+  // Create a temporary container for html2pdf
+  var wrapper = document.createElement('div');
+  wrapper.style.position = 'absolute';
+  wrapper.style.left = '-9999px';
+  wrapper.style.top = '0';
+  wrapper.style.width = '794px';
+  wrapper.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif';
+  wrapper.style.color = '#1a1c2e';
+  wrapper.style.lineHeight = '1.5';
+  wrapper.style.fontSize = '15px';
+  wrapper.style.padding = '30px 42px';
+  wrapper.style.background = '#fff';
+  wrapper.innerHTML = '<style>' + getPrintCSS() + '</style>' + clone.innerHTML;
+  document.body.appendChild(wrapper);
 
-  printWin.document.write(
-    '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
-    '<title>' + (isZh ? 'Wayne LIN 简历' : 'Wayne LIN Resume') + '</title>' +
-    '<style>' + getPrintCSS() + '</style></head><body>' +
-    clone.innerHTML +
-    '<script>window.onload=function(){setTimeout(function(){window.print();},500);}<\/script>' +
-    '</body></html>'
-  );
-  printWin.document.close();
+  var filename = isZh ? 'Wayne_LIN_简历.pdf' : 'Wayne_LIN_Resume.pdf';
+
+  html2pdf().set({
+    margin: 0,
+    filename: filename,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    enableLinks: true,
+    pagebreak: { mode: ['css', 'legacy'], avoid: ['.intro-block', '.project-card', '.header', '.parallel-item'] }
+  }).from(wrapper).save().then(function() {
+    document.body.removeChild(wrapper);
+    btns.forEach(function(b) { b.disabled = false; });
+  }).catch(function() {
+    document.body.removeChild(wrapper);
+    btns.forEach(function(b) { b.disabled = false; });
+    alert(isZh ? '导出失败，请重试' : 'Export failed, please try again');
+  });
 }
 
 function getPrintCSS() {
@@ -68,6 +90,7 @@ function getPrintCSS() {
     '.title-zh { font-size: 16px; color: #6b7280; }',
     '.contact-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; font-size: 14px; color: #6b7280; }',
     '.contact-row a { color: #1c4ed8; text-decoration: none; }',
+    'a { color: #1c4ed8; text-decoration: none; }',
 
     '.section { margin-bottom: 12px; }',
     '#work { page-break-before: always; break-before: page; margin-top: 0; }',
