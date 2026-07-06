@@ -138,9 +138,7 @@ function getPrintCSS() {
     '  .entry-company { break-after: avoid; page-break-after: avoid; }',
     '  .entry-role { break-after: avoid; page-break-after: avoid; }',
     '  .section-title + .timeline, .section-title + .skills-grid, .section-title + .project-grid { break-before: avoid; }',
-    '  @page { margin: 0; size: A4; }',
-    '  body { padding: 22px 34px; }',
-    '  @bottom-right { content: none; }',
     '}',
+    '@page { margin: 0; size: A4; }',
   ].join('\n');
 }
