@@ -35,17 +35,25 @@ function exportPDF() {
   }
 
   // Remove clickable links (except skills): remove project/external links entirely, replace others with text
-  var links = clone.querySelectorAll('a');
-  for (var l = links.length - 1; l >= 0; l--) {
-    var link = links[l];
-    if (link.closest('.skills-grid')) continue;
-    // Remove project links entirely (Project Page, AppStore, Marketing, GitHub, Demo Video etc.)
-    if (link.closest('.project-name') || link.closest('.project-links-row') || link.closest('.project-links')) {
-      link.parentNode.removeChild(link);
-    } else {
-      var text = document.createTextNode(link.textContent);
-      link.parentNode.replaceChild(text, link);
+  // Remove all links inside project cards (Project Page, AppStore, Marketing, GitHub, Demo Video etc.)
+  var projectLinks = clone.querySelectorAll('.project-name a, .project-links-row a, .project-links a');
+  for (var l = projectLinks.length - 1; l >= 0; l--) {
+    projectLinks[l].parentNode.removeChild(projectLinks[l]);
+  }
+  // Remove empty .project-links and .project-links-row containers
+  var emptyContainers = clone.querySelectorAll('.project-links, .project-links-row');
+  for (var m = emptyContainers.length - 1; m >= 0; m--) {
+    if (!emptyContainers[m].querySelector('a')) {
+      emptyContainers[m].parentNode.removeChild(emptyContainers[m]);
     }
+  }
+  // Replace remaining non-skill links with plain text
+  var otherLinks = clone.querySelectorAll('a');
+  for (var n = otherLinks.length - 1; n >= 0; n--) {
+    var ol = otherLinks[n];
+    if (ol.closest('.skills-grid')) continue;
+    var txt = document.createTextNode(ol.textContent);
+    ol.parentNode.replaceChild(txt, ol);
   }
 
   // Remove UI elements
