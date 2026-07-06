@@ -70,6 +70,7 @@ function getPrintCSS() {
     '.contact-row a { color: #1c4ed8; text-decoration: none; }',
 
     '.section { margin-bottom: 12px; }',
+    '#work { break-before: page; }',
     '.section-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid #e0e2ec; }',
 
     '.timeline { position: relative; }',
@@ -134,7 +135,6 @@ function getPrintCSS() {
     '  .header { break-inside: avoid; }',
     '  .parallel-item { break-inside: avoid; }',
     '  .section-title { break-after: avoid; }',
-    '  .section { break-inside: avoid; }',
     '  #work, #projects, #opensource, #skills, #languages, #interests { break-before: auto; }',
     '  .section-title + .timeline, .section-title + .skills-grid, .section-title + .project-grid { break-before: avoid; }',
     '  @page { margin: 20px 0 10px 0; size: A4; }',
